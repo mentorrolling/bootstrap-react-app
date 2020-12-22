@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import NavBarTest from "./NavBarTest";
+
+import "../css/tabla.css";
 import Portada from "../images/portada.svg";
 
 export default function Tabla(props) {
@@ -128,7 +130,7 @@ export default function Tabla(props) {
         <div>
           <NavBarTest setLogout={setLogout} />
           <div className="container mt-4">
-            <div className="row">
+            <div id="portada" className="row">
               <div className="col">
                 <img src={Portada} alt="portada" />
               </div>
@@ -140,7 +142,7 @@ export default function Tabla(props) {
                 {lista.loading ? (
                   <h1>Loading...</h1>
                 ) : (
-                  <Table striped bordered hover>
+                  <Table striped bordered hover responsive>
                     <thead>
                       <tr>
                         <th>Nombre</th>

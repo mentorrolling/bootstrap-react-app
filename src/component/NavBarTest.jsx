@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import ModalTest from "./ModalTest";
+
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
+import "../css/tabla.css";
 import Logo from "../images/logo.png";
 export default function NavBarTest({ setLogout }) {
-  // const [show, setShow] = useState(false);
-
   const [token, setToken] = useState("");
 
   useEffect(() => {
@@ -24,7 +23,7 @@ export default function NavBarTest({ setLogout }) {
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
         <Navbar.Brand>
-          <img src={Logo} alt="logo" />
+          <img id="imagenLogo" src={Logo} alt="logo" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
