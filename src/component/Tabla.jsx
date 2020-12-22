@@ -4,6 +4,7 @@ import NavBarTest from "./NavBarTest";
 
 import "../css/tabla.css";
 import Portada from "../images/portada.svg";
+import ModalTest from "./ModalTest";
 
 export default function Tabla(props) {
   //verifico si hay un token guardado en el LocalStorage
@@ -25,8 +26,13 @@ export default function Tabla(props) {
     role: "",
   });
 
+  //Obtener el id del producto y almacenarlo en el estado
+  const [productoId, setProductoId] = useState("");
+
   //Estado para manejar la paginación
   const [page, setPage] = useState(0);
+
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     //al montar componente
@@ -124,11 +130,20 @@ export default function Tabla(props) {
       setPage(page - 5);
     }
   };
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <>
       {token.length > 0 && (
         <div>
           <NavBarTest setLogout={setLogout} />
+          <ModalTest
+            handleClose={handleClose}
+            show={show}
+            dato={productoId}
+            getProductos={getProductos}
+          />
           <div className="container mt-4">
             <div id="portada" className="row">
               <div className="col">
@@ -159,8 +174,17 @@ export default function Tabla(props) {
                           <td>{producto.categoria.descripcion}</td>
                           <td>
                             {usuario.role === "ADMIN_ROLE" && (
-                              <button className="btn btn-warning">
-                                Modificar
+                              <button
+                                className="btn btn-warning"
+                                onClick={() => {
+                                  setProductoId(producto._id);
+                                  handleShow();
+                                }}
+                              >
+                                <i
+                                  class="fa fa-pencil-square-o"
+                                  aria-hidden="true"
+                                ></i>
                               </button>
                             )}
                           </td>
@@ -170,10 +194,13 @@ export default function Tabla(props) {
                   </Table>
                 )}
                 <button className="btn btn-info mr-2" onClick={despaginando}>
-                  ⏪
+                  <i className="fa fa-angle-double-left" aria-hidden="true"></i>
                 </button>
                 <button className="btn btn-info" onClick={paginando}>
-                  ⏩
+                  <i
+                    className="fa fa-angle-double-right"
+                    aria-hidden="true"
+                  ></i>
                 </button>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import React from "react";
-import { Modal, Button } from "react-bootstrap";
-import FormRegistro from "./FormRegistro";
+import { Modal } from "react-bootstrap";
+import FormUpdateProd from "./FormUpdateProd";
+
 export default function ModalTest(props) {
   return (
     <>
@@ -11,19 +12,15 @@ export default function ModalTest(props) {
         centered="true"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Registrate</Modal.Title>
+          <Modal.Title>Actualiza Producto</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* <FormRegistro handleClose={props.handleClose} /> */}
+          <FormUpdateProd
+            handleClose={props.handleClose}
+            dato={props.dato}
+            getProductos={props.getProductos}
+          />
         </Modal.Body>
-        {/* <Modal.Footer>
-          <Button variant="secondary" onClick={props.handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={props.handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer> */}
       </Modal>
     </>
   );
