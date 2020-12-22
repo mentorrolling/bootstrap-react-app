@@ -14,7 +14,7 @@ export default function ModalTest(props) {
           <Modal.Title>Registrate</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormRegistro />
+          {/* <FormRegistro handleClose={props.handleClose} /> */}
         </Modal.Body>
         {/* <Modal.Footer>
           <Button variant="secondary" onClick={props.handleClose}>

@@ -1,21 +1,23 @@
-import React, { useState } from "react";
-import { Button } from "react-bootstrap";
-import ModalTest from "./component/ModalTest";
-import NavBarTest from "./component/NavBarTest";
+import React, { useEffect } from "react";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+
+import Tabla from "./component/Tabla";
+import Login from "./pages/Login";
 
 function App() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
   return (
     <>
-      <NavBarTest />
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
+      {/* <NavBarTest /> */}
 
-      <ModalTest handleClose={handleClose} show={show} />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route exact path="/tabla" component={Tabla} />
+        </Switch>
+      </BrowserRouter>
     </>
   );
 }

@@ -1,32 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ModalTest from "./ModalTest";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
+import Logo from "../images/logo.png";
+export default function NavBarTest({ setLogout }) {
+  // const [show, setShow] = useState(false);
 
-export default function NavBarTest() {
-  const [show, setShow] = useState(false);
+  const [token, setToken] = useState("");
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  useEffect(() => {
+    setToken(JSON.parse(localStorage.getItem("token")) || "");
+  }, []);
+
+  // useEffect(() => {
+  //  if(token===""){
+  //    props.history.push('/')
+  //  }
+  // }, [token])
+
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand>
+          <img src={Logo} alt="logo" />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto mr-2">
-            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#home">
+              <i className="fas ad"></i>
+              Home
+            </Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link>
           </Nav>
           <Form inline>
-            {/* <FormControl type="text" placeholder="Search" className="mr-sm-2" /> */}
-            <Button variant="outline-success" onClick={handleShow}>
-              Registrate
+            <Button
+              variant="outline-secondary"
+              onClick={() => {
+                setToken("");
+                localStorage.clear();
+                setLogout(true);
+              }}
+            >
+              Salir
             </Button>
+            {/* {token === "" ? (
+              <Button variant="outline-success" onClick={handleShow}>
+                Loguearse
+              </Button>
+            ) : (
+              <Button
+                variant="outline-secondary"
+                onClick={() => {
+                  setToken("");
+                  localStorage.clear();
+                 
+                }}
+              >
+                Salir
+              </Button>
+              // <span className="text-white">Hello!</span>
+            )} */}
           </Form>
         </Navbar.Collapse>
       </Navbar>
-      <ModalTest handleClose={handleClose} show={show} />
+      {/* <ModalTest handleClose={handleClose} show={show} /> */}
     </>
   );
 }
