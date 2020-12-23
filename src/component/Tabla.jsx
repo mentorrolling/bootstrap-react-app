@@ -9,7 +9,6 @@ import ModalTest from "./ModalTest";
 export default function Tabla(props) {
   //verifico si hay un token guardado en el LocalStorage
   const token = localStorage.getItem("token") || "";
-
   const [logout, setLogout] = useState(false); //Estado que verifica el deslogueo
 
   //Estado para manejar los datos de la tabla
@@ -31,7 +30,6 @@ export default function Tabla(props) {
 
   //Estado para manejar la paginación
   const [page, setPage] = useState(0);
-
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -172,20 +170,28 @@ export default function Tabla(props) {
                           <td>{producto.nombre}</td>
                           <td className="text-right">$ {producto.precioUni}</td>
                           <td>{producto.categoria.descripcion}</td>
-                          <td>
+                          <td className="text-center">
                             {usuario.role === "ADMIN_ROLE" && (
-                              <button
-                                className="btn btn-warning"
-                                onClick={() => {
-                                  setProductoId(producto._id);
-                                  handleShow();
-                                }}
-                              >
-                                <i
-                                  class="fa fa-pencil-square-o"
-                                  aria-hidden="true"
-                                ></i>
-                              </button>
+                              <div>
+                                <button
+                                  className="btn btn-warning"
+                                  onClick={() => {
+                                    setProductoId(producto._id);
+                                    handleShow();
+                                  }}
+                                >
+                                  <i
+                                    class="fa fa-pencil-square-o"
+                                    aria-hidden="true"
+                                  ></i>
+                                </button>
+                                <button className="btn btn-danger ml-4">
+                                  <i
+                                    class="fa fa-trash-o"
+                                    aria-hidden="true"
+                                  ></i>
+                                </button>
+                              </div>
                             )}
                           </td>
                         </tr>
