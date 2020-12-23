@@ -4,7 +4,10 @@ import { Table } from "react-bootstrap";
 
 export default function TablaProductos({ usuario }) {
   //Obtener el id del producto y almacenarlo en el estado
-  const [productoId, setProductoId] = useState("");
+  const [productoId, setProductoId] = useState({
+    id: "",
+    action: "",
+  });
   //Estado para manejar la paginación
   const [page, setPage] = useState(0);
   const [show, setShow] = useState(false);
@@ -116,7 +119,10 @@ export default function TablaProductos({ usuario }) {
                         <button
                           className="btn btn-warning"
                           onClick={() => {
-                            setProductoId(producto._id);
+                            setProductoId({
+                              id: producto._id,
+                              action: "actualizar",
+                            });
                             handleShow();
                           }}
                         >
@@ -125,7 +131,16 @@ export default function TablaProductos({ usuario }) {
                             aria-hidden="true"
                           ></i>
                         </button>
-                        <button className="btn btn-danger ml-4">
+                        <button
+                          className="btn btn-danger ml-4"
+                          onClick={() => {
+                            setProductoId({
+                              id: producto._id,
+                              action: "borrar",
+                            });
+                            handleShow();
+                          }}
+                        >
                           <i className="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
                       </div>

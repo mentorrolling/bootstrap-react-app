@@ -22,30 +22,31 @@ export default function NavBarTest({ setLogout }) {
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand>
-          <img id="imagenLogo" src={Logo} alt="logo" />
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto mr-2">
-            <Nav.Link href="#home">
+        <div className="container">
+          <Navbar.Brand>
+            <img id="imagenLogo" src={Logo} alt="logo" />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto mr-2">
+              {/* <Nav.Link href="#home">
               <i className="fas ad"></i>
               Home
             </Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-          </Nav>
-          <Form inline>
-            <Button
-              variant="outline-secondary"
-              onClick={() => {
-                setToken("");
-                localStorage.clear();
-                setLogout(true);
-              }}
-            >
-              Salir
-            </Button>
-            {/* {token === "" ? (
+            <Nav.Link href="#link">Link</Nav.Link> */}
+            </Nav>
+            <Form inline>
+              <Button
+                variant="outline-secondary"
+                onClick={() => {
+                  setToken("");
+                  localStorage.clear();
+                  setLogout(true);
+                }}
+              >
+                Salir
+              </Button>
+              {/* {token === "" ? (
               <Button variant="outline-success" onClick={handleShow}>
                 Loguearse
               </Button>
@@ -62,8 +63,9 @@ export default function NavBarTest({ setLogout }) {
               </Button>
               // <span className="text-white">Hello!</span>
             )} */}
-          </Form>
-        </Navbar.Collapse>
+            </Form>
+          </Navbar.Collapse>
+        </div>
       </Navbar>
       {/* <ModalTest handleClose={handleClose} show={show} /> */}
     </>
