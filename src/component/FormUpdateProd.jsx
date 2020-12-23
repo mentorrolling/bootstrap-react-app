@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 export default function FormUpdateProd(props) {
-  //   const [producto, setProducto] = useState({});
-
   const [actualizado, setActualizado] = useState({
     form: {
       nombre: "",
@@ -24,10 +22,6 @@ export default function FormUpdateProd(props) {
     getProducto();
   }, []);
 
-  //   useEffect(() => {
-  //     console.log(producto);
-  //   }, [producto]);
-
   const getProducto = async () => {
     let token = JSON.parse(localStorage.getItem("token"));
     try {
@@ -42,7 +36,6 @@ export default function FormUpdateProd(props) {
       const data = await resp.json();
 
       setActualizado(data.producto);
-      //   props.getProductos();
     } catch (error) {
       console.log(error);
     }
