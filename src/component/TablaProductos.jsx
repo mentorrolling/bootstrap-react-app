@@ -104,7 +104,22 @@ export default function TablaProductos({ usuario }) {
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Categoria</th>
-                <th></th>
+                <th>
+                  {usuario.role === "ADMIN_ROLE" && (
+                    <button
+                      className="btn btn-info btn-block mr-md-4 mb-2 mb-md-0"
+                      onClick={() => {
+                        setProductoId({
+                          id: "",
+                          action: "nuevo",
+                        });
+                        handleShow();
+                      }}
+                    >
+                      <i className="fa fa-plus" aria-hidden="true"></i> Agregar
+                    </button>
+                  )}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -115,7 +130,7 @@ export default function TablaProductos({ usuario }) {
                   <td>{producto.categoria.descripcion}</td>
                   <td className="text-center">
                     {usuario.role === "ADMIN_ROLE" && (
-                      <div>
+                      <div className="col">
                         <button
                           className="btn btn-warning"
                           onClick={() => {
@@ -132,7 +147,7 @@ export default function TablaProductos({ usuario }) {
                           ></i>
                         </button>
                         <button
-                          className="btn btn-danger ml-4"
+                          className="btn btn-danger ml-md-4 mt-2 mt-md-0"
                           onClick={() => {
                             setProductoId({
                               id: producto._id,
@@ -150,6 +165,7 @@ export default function TablaProductos({ usuario }) {
               ))}
             </tbody>
           </Table>
+
           <button className="btn btn-info mr-2" onClick={despaginando}>
             <i className="fa fa-angle-double-left" aria-hidden="true"></i>
           </button>

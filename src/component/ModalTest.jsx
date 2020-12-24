@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import FormUpdateProd from "./FormUpdateProd";
+import FormAddProducto from "./modales/FormAddProducto";
 import MensajeDelete from "./modales/MensajeDelete";
 
 export default function ModalTest(props) {
@@ -31,6 +32,12 @@ export default function ModalTest(props) {
             handleClose={props.handleClose}
             dato={props.dato.id}
             getProductos={props.getProductos}
+          />
+        )}
+        {props.dato.action === "nuevo" && (
+          <FormAddProducto
+            getProductos={props.getProductos}
+            handleClose={props.handleClose}
           />
         )}
       </Modal>
