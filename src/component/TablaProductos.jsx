@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ModalTest from "./ModalTest";
-import { Table } from "react-bootstrap";
+import { Table, Form } from "react-bootstrap";
 
 export default function TablaProductos({ usuario }) {
   //Obtener el id del producto y almacenarlo en el estado
@@ -28,7 +28,7 @@ export default function TablaProductos({ usuario }) {
     getProductos();
   }, [page]);
 
-  //Obtengo los datos de los productos
+  //Obtengo los datos de los productos----------------------
   const getProductos = async () => {
     let token = JSON.parse(localStorage.getItem("token"));
     try {
@@ -62,6 +62,46 @@ export default function TablaProductos({ usuario }) {
       console.log(error);
     }
   };
+  //-----------------------------------------------------
+
+  //-----Buscar producto ingresado--------------------
+  const buscarProducto = async ({ target }) => {
+    let termino = target.value;
+    let token = JSON.parse(localStorage.getItem("token"));
+    if (termino !== "") {
+      try {
+        const resp = await fetch(
+          `http://localhost:3005/producto/buscar/${termino}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+              token: `${token}`,
+            },
+          }
+        );
+        const data = await resp.json();
+
+        setLista({
+          ...lista,
+          datos: data.producto,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      getProductos();
+    }
+  };
+  //------------------------------------------
+
+  //----Limpiar campo de busqueda-------------
+
+  const limpiarBuscador = ({ target }) => {
+    target.value = "";
+    getProductos();
+  };
+  //------------------------------------------
 
   // funcion para manejar paginado next
   const paginando = () => {
@@ -98,6 +138,20 @@ export default function TablaProductos({ usuario }) {
       ) : (
         <>
           <h2 className="text-center">Lista de productos</h2>
+
+          {/* Sección de buscar producto */}
+          <div className="col-12 col-md-6 offset-md-3 col-lg-8 offset-lg-2">
+            <Form.Group>
+              <Form.Control
+                type="text"
+                placeholder="Buscar producto..."
+                name="buscar"
+                onChange={buscarProducto}
+                onClick={limpiarBuscador}
+              />
+            </Form.Group>
+          </div>
+          {/* --------------------------- */}
           <Table striped bordered hover responsive>
             <thead>
               <tr>
