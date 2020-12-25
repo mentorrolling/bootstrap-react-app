@@ -29,7 +29,7 @@ export default function Login(props) {
         id="navLogin"
         className="navbar navbar-dark bg-dark d-flex justify-content-center"
       >
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="/">
           <img src={Logo} alt="" />
         </a>
       </nav>

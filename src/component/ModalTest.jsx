@@ -22,7 +22,8 @@ export default function ModalTest(props) {
               <FormUpdateProd
                 handleClose={props.handleClose}
                 dato={props.dato.id}
-                getProductos={props.getProductos}
+                page={props.page}
+                actualizaLista={props.actualizaLista}
               />
             </Modal.Body>
           </>
@@ -31,12 +32,14 @@ export default function ModalTest(props) {
           <MensajeDelete
             handleClose={props.handleClose}
             dato={props.dato.id}
-            getProductos={props.getProductos}
+            page={props.page}
+            actualizaLista={props.actualizaLista}
           />
         )}
         {props.dato.action === "nuevo" && (
           <FormAddProducto
-            getProductos={props.getProductos}
+            page={props.page}
+            actualizaLista={props.actualizaLista}
             handleClose={props.handleClose}
           />
         )}

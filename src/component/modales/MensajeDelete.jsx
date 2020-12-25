@@ -17,7 +17,7 @@ export default function MensajeDelete(props) {
       const data = await resp.json();
 
       console.log(data);
-      props.getProductos();
+      props.actualizaLista(props.page);
       props.handleClose();
     } catch (error) {
       console.log(error);

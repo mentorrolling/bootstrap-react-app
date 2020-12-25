@@ -10,15 +10,6 @@ export default function NavBarTest({ setLogout }) {
     setToken(JSON.parse(localStorage.getItem("token")) || "");
   }, []);
 
-  // useEffect(() => {
-  //  if(token===""){
-  //    props.history.push('/')
-  //  }
-  // }, [token])
-
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -37,14 +28,14 @@ export default function NavBarTest({ setLogout }) {
             </Nav>
             <Form inline>
               <Button
-                variant="outline-secondary"
+                variant="outline-info"
                 onClick={() => {
                   setToken("");
                   localStorage.clear();
                   setLogout(true);
                 }}
               >
-                Salir
+                <i className="fa fa-sign-out" aria-hidden="true"></i>
               </Button>
               {/* {token === "" ? (
               <Button variant="outline-success" onClick={handleShow}>

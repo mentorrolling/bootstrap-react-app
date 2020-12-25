@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import NavBarTest from "./NavBarTest";
 
+import { getUsuario } from "../helpers/Usuario";
+
 import "../css/tabla.css";
 import Portada from "../images/portada.svg";
 
@@ -26,8 +28,12 @@ export default function Tabla(props) {
       if (token === "") {
         props.history.push("/");
       } else {
-        //traemos datos del usuario
-        getUsuario();
+        //traemos datos del usuario usando el helper
+        getUsuario()
+          .then((response) => {
+            setUsuario(response);
+          })
+          .catch((err) => console.log(err));
       }
     };
     inicio();
@@ -39,33 +45,6 @@ export default function Tabla(props) {
       props.history.push("/");
     }
   }, [logout]);
-
-  //Ejecuto método para traer datos del usuario
-  const getUsuario = async () => {
-    //obtengo los datos del token, id del localStorage
-    // para enviarlos como parámetros
-    let token = JSON.parse(localStorage.getItem("token"));
-    let id = JSON.parse(localStorage.getItem("id"));
-    try {
-      const resp = await fetch(`http://localhost:3005/usuario/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          token: `${token}`,
-        },
-      });
-      const data = await resp.json();
-
-      //Almaceno en el estado usuario los datos obtenidos
-      setUsuario({
-        nombre: data.usuario.nombre,
-        email: data.usuario.email,
-        role: data.usuario.role,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <>

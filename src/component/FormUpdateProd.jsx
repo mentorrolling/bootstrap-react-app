@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
+
 import { Form, Button, InputGroup } from "react-bootstrap";
 export default function FormUpdateProd(props) {
   const [actualizado, setActualizado] = useState({
-    form: {
-      nombre: "",
-      precio: "",
-      descripcion: "",
-    },
+    nombre: "",
+    disponible: true,
+    precio: 0,
+    descripcion: "",
+    usuario: {},
+    categoria: {},
   });
 
   const handleChange = ({ target }) => {
     setActualizado({
-      form: {
-        ...actualizado.form,
-        [target.name]: target.value,
-      },
+      ...actualizado,
+      [target.name]: target.value,
     });
   };
 
@@ -47,7 +47,7 @@ export default function FormUpdateProd(props) {
     try {
       const resp = await fetch(`http://localhost:3005/producto/${props.dato}`, {
         method: "PUT",
-        body: JSON.stringify(actualizado.form),
+        body: JSON.stringify(actualizado),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           token: `${token}`,
@@ -55,7 +55,8 @@ export default function FormUpdateProd(props) {
       });
       const data = await resp.json();
       console.log(data.message);
-      props.getProductos();
+
+      props.actualizaLista(props.page);
     } catch (error) {
       console.log(error);
     }
@@ -80,13 +81,48 @@ export default function FormUpdateProd(props) {
             <InputGroup.Text>$</InputGroup.Text>
           </InputGroup.Prepend>
           <Form.Control
-            name="precio"
+            name="precioUni"
             type="text"
             value={actualizado.precioUni}
             onChange={handleChange}
           />
         </InputGroup>
       </Form.Group>
+
+      <div className="form-group">
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            name="disponible"
+            value={actualizado.disponible}
+            onChange={() => {
+              if (actualizado.disponible) {
+                setActualizado({
+                  ...actualizado,
+                  disponible: false,
+                });
+              } else {
+                setActualizado({
+                  ...actualizado,
+                  disponible: true,
+                });
+              }
+            }}
+            checked={actualizado.disponible}
+          />
+          <label className="form-check-label">Disponible</label>
+        </div>
+
+        {/* <Form.Label>Estado</Form.Label>
+        <Form.Control as="select" name="disponible" onChange={handleChange}>
+          <option value={actualizado.disponible}>
+            {actualizado.disponible ? "Disponible" : "No disponible"}
+          </option>
+
+          <option>{!setActualizado.form.disponible ? 'No disponible' : 'Disponible'}</option>
+        </Form.Control> */}
+      </div>
       <Form.Group>
         <Form.Label>Descripción</Form.Label>
         <Form.Control

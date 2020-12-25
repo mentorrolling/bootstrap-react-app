@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ModalTest from "./ModalTest";
+import { getProductos } from "../helpers/Productos";
 import { Table, Form } from "react-bootstrap";
 
 export default function TablaProductos({ usuario }) {
@@ -19,49 +20,23 @@ export default function TablaProductos({ usuario }) {
     cantidad: 0,
   });
 
+  // Si cambia el estado de Page vuelvo a cargar los datos
+  // de los productos usando el helper
   useEffect(() => {
-    getProductos();
-  }, []);
-
-  //Si cambia el estado de Page vuelvo a cargar los datos de los productos
-  useEffect(() => {
-    getProductos();
+    actualizaLista(page);
   }, [page]);
 
-  //Obtengo los datos de los productos----------------------
-  const getProductos = async () => {
-    let token = JSON.parse(localStorage.getItem("token"));
-    try {
-      // envío los parámetros para la paginacion y defino el desde con el valor
-      // del estado page
-      const resp = await fetch(
-        `http://localhost:3005/producto?limite=5&desde=${page}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            token: `${token}`,
-          },
-        }
-      );
-      const data = await resp.json();
-
-      //Almaceno en el estado lista los datos obtenidos
-      setLista({
-        datos: data.productos,
-        loading: false,
-        cantidad: data.cantidad,
-        error: null,
+  //Obtengo los datos de los productos usando helpers----------------------
+  const actualizaLista = (page) => {
+    getProductos(page)
+      .then((response) => {
+        setLista(response);
+      })
+      .catch((response) => {
+        setLista(response);
       });
-    } catch (error) {
-      setLista({
-        datos: {},
-        loading: false,
-        error: error,
-      });
-      console.log(error);
-    }
   };
+
   //-----------------------------------------------------
 
   //-----Buscar producto ingresado--------------------
@@ -90,7 +65,8 @@ export default function TablaProductos({ usuario }) {
         console.log(error);
       }
     } else {
-      getProductos();
+      // getProductos();
+      actualizaLista(page);
     }
   };
   //------------------------------------------
@@ -99,7 +75,7 @@ export default function TablaProductos({ usuario }) {
 
   const limpiarBuscador = ({ target }) => {
     target.value = "";
-    getProductos();
+    actualizaLista(page);
   };
   //------------------------------------------
 
@@ -130,7 +106,8 @@ export default function TablaProductos({ usuario }) {
         handleClose={handleClose}
         show={show}
         dato={productoId}
-        getProductos={getProductos}
+        page={page}
+        actualizaLista={actualizaLista}
       />
 
       {lista.loading ? (
@@ -156,6 +133,7 @@ export default function TablaProductos({ usuario }) {
             <thead>
               <tr>
                 <th>Nombre</th>
+                <th>Estado</th>
                 <th>Precio</th>
                 <th>Categoria</th>
                 <th>
@@ -180,6 +158,13 @@ export default function TablaProductos({ usuario }) {
               {lista.datos.map((producto, _id) => (
                 <tr key={_id}>
                   <td>{producto.nombre}</td>
+                  <td>
+                    {producto.disponible ? (
+                      <span className="text-success">Disponible</span>
+                    ) : (
+                      <span className="text-danger">No disponible</span>
+                    )}
+                  </td>
                   <td className="text-right">$ {producto.precioUni}</td>
                   <td>{producto.categoria.descripcion}</td>
                   <td className="text-center">

@@ -71,7 +71,7 @@ export default function FormAddProducto(props) {
         error: null,
       });
       if (data.ok) {
-        props.getProductos();
+        props.actualizaLista(props.page);
         props.handleClose();
       } else {
         setEstados({
