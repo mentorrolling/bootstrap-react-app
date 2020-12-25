@@ -8,6 +8,7 @@ import "../css/tabla.css";
 import Portada from "../images/portada.svg";
 
 import TablaProductos from "./TablaProductos";
+import TablaCategoria from "./TablaCategoria";
 
 export default function Tabla(props) {
   //verifico si hay un token guardado en el LocalStorage
@@ -61,6 +62,11 @@ export default function Tabla(props) {
             <div className="row mb-4">
               <div className="col">
                 <TablaProductos usuario={usuario} />
+              </div>
+            </div>
+            <div className="row mb-4">
+              <div className="col-12 col-md-6 offset-md-3">
+                <TablaCategoria usuario={usuario} />
               </div>
             </div>
           </div>
