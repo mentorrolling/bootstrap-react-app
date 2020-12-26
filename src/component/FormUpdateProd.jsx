@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { getCategoria } from "../helpers/Categorias";
 
 import { Form, Button, InputGroup } from "react-bootstrap";
 export default function FormUpdateProd(props) {
@@ -10,6 +11,7 @@ export default function FormUpdateProd(props) {
     usuario: {},
     categoria: {},
   });
+  const [cat, setCat] = useState([]);
 
   const handleChange = ({ target }) => {
     setActualizado({
@@ -20,6 +22,9 @@ export default function FormUpdateProd(props) {
 
   useEffect(() => {
     getProducto();
+    getCategoria()
+      .then((response) => setCat(response))
+      .catch((error) => console.log(error));
   }, []);
 
   const getProducto = async () => {
@@ -73,7 +78,25 @@ export default function FormUpdateProd(props) {
           onChange={handleChange}
         />
       </Form.Group>
-
+      <Form.Label>Categoría</Form.Label>
+      <Form.Control
+        as="select"
+        name="categoria"
+        onChange={handleChange}
+        placeholder="Elige la categoría"
+      >
+        <option>
+          {actualizado.categoria === null
+            ? "Sin categoría"
+            : actualizado.categoria.descripcion}
+        </option>
+        {cat.map((categoria) => (
+          <option key={categoria._id} value={categoria._id}>
+            {categoria.descripcion}
+          </option>
+        ))}
+      </Form.Control>
+      <Form.Group></Form.Group>
       <Form.Group>
         <Form.Label>Precio</Form.Label>
         <InputGroup>

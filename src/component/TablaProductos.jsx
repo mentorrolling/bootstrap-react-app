@@ -166,7 +166,11 @@ export default function TablaProductos({ usuario }) {
                     )}
                   </td>
                   <td className="text-right">$ {producto.precioUni}</td>
-                  <td>{producto.categoria.descripcion}</td>
+                  <td>
+                    {producto.categoria === null
+                      ? "Sin categoría"
+                      : producto.categoria.descripcion}
+                  </td>
                   <td className="text-center">
                     {usuario.role === "ADMIN_ROLE" && (
                       <div className="col">
