@@ -65,7 +65,7 @@ export default function Tabla(props) {
               </div>
             </div>
             <div className="row mb-4">
-              <div className="col-12 col-md-6 offset-md-3">
+              <div className="col-12 col-md-8 offset-md-2">
                 <TablaCategoria usuario={usuario} />
               </div>
             </div>
