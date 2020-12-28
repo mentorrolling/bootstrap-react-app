@@ -29,9 +29,9 @@ export default function Login(props) {
         id="navLogin"
         className="navbar navbar-dark bg-dark d-flex justify-content-center"
       >
-        <a className="navbar-brand" href="/">
+        <Link className="navbar-brand" to="/">
           <img src={Logo} alt="" />
-        </a>
+        </Link>
       </nav>
       <div id="contenedor" className="container mt-4">
         <div className="row">

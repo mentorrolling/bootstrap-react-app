@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Link } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 
 export default function FormRegistro(props) {
@@ -78,7 +78,9 @@ export default function FormRegistro(props) {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicEmail">
-        <Form.Label>Correo electrónico</Form.Label>
+        <Form.Label>
+          <b>Correo electrónico</b>
+        </Form.Label>
         <Form.Control
           type="email"
           placeholder="Enter email"
@@ -91,7 +93,9 @@ export default function FormRegistro(props) {
       </Form.Group>
 
       <Form.Group controlId="formBasicPassword">
-        <Form.Label>Contraseña</Form.Label>
+        <Form.Label>
+          <b>Contraseña</b>
+        </Form.Label>
         <Form.Control
           type="password"
           placeholder="Password"
@@ -103,6 +107,12 @@ export default function FormRegistro(props) {
         />
       </Form.Group>
       {login.ok === false && <Alert variant="danger">{login.error}</Alert>}
+      <div>
+        <span className="text-muted">Puedes registrarte </span>
+        <Link to="/registro">
+          <span> aquí</span>
+        </Link>
+      </div>
       <div className="d-flex justify-content-end">
         <Button
           variant="secondary"
